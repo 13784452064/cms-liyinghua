@@ -12,6 +12,6 @@ public class UserController {
 	@RequestMapping(value="hello",method=RequestMethod.GET)
 	public String tet(HttpServletRequest request) {
 		request.setAttribute("info", "hello");
-		return "/user/list";
+		return "/user/index";
     }
 }
