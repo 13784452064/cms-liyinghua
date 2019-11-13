@@ -84,7 +84,7 @@
 		<!-- 配置切点表达式 -->
 		<!-- todo -->
 		<aop:pointcut 
-			expression="execution(* com.liyinghua.service.*.*(..))" id="pointcut" />
+			expression="execution(* com.liyinghua.service.impl.*.*(..))" id="pointcut" />
 		<!-- 关联事务 -->
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="pointcut" />
 
@@ -95,7 +95,7 @@
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<!-- basePackage :mapper接口所在的包 -->
 		<!-- todo -->
-		<property name="basePackage" value="com.liyinghua.mapper"></property>
+		<property name="basePackage" value="com.liyinghua.dao"></property>
 
 	</bean>
 
