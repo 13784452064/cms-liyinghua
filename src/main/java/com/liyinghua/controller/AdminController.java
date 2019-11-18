@@ -1,5 +1,7 @@
 package com.liyinghua.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.liyinghua.common.StatusMessages;
+import com.liyinghua.entity.Channel;
 import com.liyinghua.entity.User;
+import com.liyinghua.service.ChannelService;
 import com.liyinghua.service.UserService;
 
 
@@ -22,6 +26,8 @@ import com.liyinghua.service.UserService;
 public class AdminController {
 	@Autowired
 	private UserService service;
+	@Autowired
+	private ChannelService channelService;
 	/**
 	 * 
 	 * @Title: index 
@@ -78,6 +84,21 @@ public class AdminController {
 			return new StatusMessages(0, "修改成功", null);
 		}
 		return  new StatusMessages(3, "修改失败,请联系管理员", null);
+		
+	}
+	/**
+	 * 
+	 * @Title: toHomePage 
+	 * @Description: 跳转首页(传入频道列表)
+	 * @param hs
+	 * @return
+	 * @return: String
+	 */
+	@RequestMapping(value = {"toHomePage","/"})
+	private String toHomePage(HttpServletRequest hs) {
+		List<Channel> list=channelService.getChannelList();
+		hs.setAttribute("list", list);
+		return "admin/news/homePage";
 		
 	}
 }

@@ -34,6 +34,9 @@
 		<!-- 导航列表 -->
 		<div class="col-md-2" style="border-right: solid;height: 600px">
 			<ul class="nav nav-list">
+				<li class="active">
+					<a href="toHomePage">查看首页</a>
+				</li>
 				<li class="nav-header">
 					用户
 				</li>
