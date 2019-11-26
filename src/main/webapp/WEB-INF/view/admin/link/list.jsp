@@ -20,6 +20,9 @@ function updLink(id) {
 	var url="/link/toUpdate?linkId="+id;
 	$("#upd").load(url);
 }
+function toUrl(url) {
+	window.open(url);
+}
 </script>
 	<div style="margin-left: 100px">
 		<form:form modelAttribute="link" action="/link/addLink" method="post" >
@@ -43,7 +46,7 @@ function updLink(id) {
 				  <c:forEach items="${LinkInfo.list}" var="link">
 				    <tr class="active">
 				        <td>${link.id}</td>
-					    <td>${link.name}</td>
+					    <td><a href="javascript:toUrl('${link.url}')">${link.name}</a></td>
 					    <td>${link.url}</td>
 					    <td><fmt:formatDate value="${link.created}" pattern="YYYY年MM月dd日"/></td>
 					    <td><button onclick="updLink(${link.id})">修改</button><button onclick="del(${link.id})">删除</button></td>

@@ -31,7 +31,37 @@
 			)
 			
 		}
+		function addCollect() {
+			var name=$("#a").val()
+			var url=$("#b").val()
+			var userId=$("#c").val()
+				$.post(
+						"/collect/addCollect",
+						{name:name,url:url,userId:userId},
+						function(msg) {
+							if(msg){
+								alert("收藏成功")
+							}else{
+								alert("收藏失败")
+							}
+						},
+						"json"
+				)
+			
+		}
+	function toCollect(url) {
+		window.open(url)
+	}
+	function toCollect1(articleId) {
+		window.open("/home/Article/getContent?articleId="+articleId)
+	}
 </script>
+<div style="margin-left: 100px">
+				收藏文章名<input type="text" name="name" id="a"> 
+				收藏文章地址<input type="text" name="url" id="b"> 
+				<input type="hidden" name="userId" value="${SESSION_USER_KEY.id}" id="c"> 
+				<input type="button" onclick="addCollect()" value="添加">
+	</div>	
 <div style="height:500px;width: 1000px;margin-left: 100px;margin-top: 20px" >
 				<table class="table table-striped" style="font-size: 25px;font-family: courier">
 		  		<thead>
@@ -46,7 +76,7 @@
 				  <c:forEach items="${p.list}" var="collect">
 				    <tr class="active">
 				        <td>${collect.id}</td>
-					    <td>${collect.article.title}</td>
+					    <td><a href="javascript:toCollect1('${collect.article.id}')">${collect.article.title}</a><a href="javascript:toCollect('${collect.url}')">${collect.name}</a></td>
 					    <td>${collect.collectTime}</td>
 					    <td><button onclick="del(${collect.id},${SESSION_USER_KEY.id})">删除</button></td>				    	
 				    </tr>

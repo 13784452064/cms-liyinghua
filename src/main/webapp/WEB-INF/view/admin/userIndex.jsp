@@ -26,6 +26,7 @@
 		}else{
 			var url='/user/getUserNewsListByUserId?fy='+fy
 		}
+		
 		$("#content").load(url);
 	}
 	function postArticle(url){

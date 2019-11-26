@@ -2,17 +2,19 @@ package com.liyinghua.entity;
 
 public class Collect {
 	   private Integer id            ;
+	   private String name;
 	   private Integer userId             ;
 	   private User user;
 	   private Integer articleId          ;
 	   private Article article;
-	   private Integer url                ;
+	   private String url                ;
 	   private Integer collectTime        ;
 	   private Integer del        ;
-	public Collect(Integer id, Integer userId, User user, Integer articleId, Article article, Integer url,
+	public Collect(Integer id, String name, Integer userId, User user, Integer articleId, Article article, String url,
 			Integer collectTime, Integer del) {
 		super();
 		this.id = id;
+		this.name = name;
 		this.userId = userId;
 		this.user = user;
 		this.articleId = articleId;
@@ -30,6 +32,12 @@ public class Collect {
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public Integer getUserId() {
 		return userId;
@@ -55,10 +63,10 @@ public class Collect {
 	public void setArticle(Article article) {
 		this.article = article;
 	}
-	public Integer getUrl() {
+	public String getUrl() {
 		return url;
 	}
-	public void setUrl(Integer url) {
+	public void setUrl(String url) {
 		this.url = url;
 	}
 	public Integer getCollectTime() {
@@ -75,8 +83,9 @@ public class Collect {
 	}
 	@Override
 	public String toString() {
-		return "Collect [id=" + id + ", userId=" + userId + ", user=" + user + ", articleId=" + articleId + ", article="
-				+ article + ", url=" + url + ", collectTime=" + collectTime + ", del=" + del + "]";
+		return "Collect [id=" + id + ", name=" + name + ", userId=" + userId + ", user=" + user + ", articleId="
+				+ articleId + ", article=" + article + ", url=" + url + ", collectTime=" + collectTime + ", del=" + del
+				+ "]";
 	}
 	
 	   
