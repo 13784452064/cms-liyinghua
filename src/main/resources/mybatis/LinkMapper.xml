@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liyinghua.dao.LinkMapper">
+	<select id="list" resultType="link">
+		SELECT * FROM cms_link ORDER BY  cms_link.id DESC
+	</select>
+	<insert id="add">
+		insert into cms_link(name,url,created) values(#{name},#{url},now())
+	</insert>
+	<delete id="delLink">
+		delete from cms_link where id=#{linkId}
+	</delete>
+	<select id="getLinkById" resultType="link">
+		SELECT * FROM cms_link where id=#{linkId}
+	</select>
+	<update id="update">
+		update cms_link set name=#{name},url=#{url} where id=#{id}
+	</update>
+</mapper>

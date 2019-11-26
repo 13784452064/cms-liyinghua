@@ -2,6 +2,8 @@ package com.liyinghua.service;
 
 import java.util.List;
 
+import com.liyinghua.entity.Category;
+
 
 
 public interface CategoryService {
@@ -13,6 +15,6 @@ public interface CategoryService {
 	 * @return
 	 * @return: List
 	 */
-	List getCategoryByChannelId(Integer channelId);
+	List<Category> getCategoryByChannelId(Integer channelId);
 
 }

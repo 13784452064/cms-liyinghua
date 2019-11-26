@@ -8,15 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
-
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.liyinghua.common.StatusMessages;
+import com.liyinghua.entity.Article;
 import com.liyinghua.entity.Channel;
+import com.liyinghua.entity.Link;
 import com.liyinghua.entity.User;
+import com.liyinghua.service.ArticleService;
 import com.liyinghua.service.ChannelService;
 import com.liyinghua.service.UserService;
 
@@ -28,15 +31,18 @@ public class AdminController {
 	private UserService service;
 	@Autowired
 	private ChannelService channelService;
+	@Autowired
+	private ArticleService service2;
+	
 	/**
-	 * 
+	 * +
 	 * @Title: index 
 	 * @Description: 跳转中心页面
 	 * @return
 	 * @return: String
 	 */
 	@RequestMapping("hello")
-	public String index() {
+	public String index(Model m) {
 		return "admin/index";
 		
 	}
@@ -54,7 +60,6 @@ public class AdminController {
 	private String getUsersList(HttpServletRequest hs ,String mohu,@RequestParam(defaultValue = "1")Integer fy) {		
 		  System.out.println(mohu);
 		  PageInfo<User> info=service.getUsersList(fy,mohu);
-		  System.out.println(info);
 		  hs.setAttribute("info",info);
 		  hs.setAttribute("mohu", mohu);
 		return "admin/user/userlist";
@@ -94,11 +99,25 @@ public class AdminController {
 	 * @return
 	 * @return: String
 	 */
-	@RequestMapping(value = {"toHomePage","/"})
+	@RequestMapping(value = {"/toHomePage","/"})
 	private String toHomePage(HttpServletRequest hs) {
+		
+		List<Article> hotNews=channelService.getHotNews();
 		List<Channel> list=channelService.getChannelList();
+		List<Article> imgArticles = service2.getImgArticles(10);
+		hs.setAttribute("imgArticles", imgArticles);
 		hs.setAttribute("list", list);
+		hs.setAttribute("hotNews", hotNews);
+		hs.setAttribute("yz", true);
+		hs.setAttribute("yz", true);
 		return "admin/news/homePage";
 		
 	}
+	
+	@RequestMapping("UserHello")
+	private String UserHello() {
+		return "admin/userIndex";
+		
+	}
+	
 }

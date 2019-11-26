@@ -18,7 +18,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<result column=" deleted" property="deleted"/>
 			<result column=" updated" property="updated"/>
 			<result column=" commentCnt" property="commentCnt"/>
-			<result column=" articleType" property="articleType"/>
+			<result property="articleType" column="articleType" 
+		    typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"
+			jdbcType="INTEGER" javaType="com.liyinghua.entity.TypeEnum"
+		    />
 			<association property="user" column="user_id" select="com.liyinghua.dao.UserMapper.getUserById"></association> 
 			<association property="channel" column="channel_id" select="com.liyinghua.dao.ChannelMapper.findById"></association> 
 			<association property="category" column="category_id" select="com.liyinghua.dao.CategoryMapper.findById"></association>     

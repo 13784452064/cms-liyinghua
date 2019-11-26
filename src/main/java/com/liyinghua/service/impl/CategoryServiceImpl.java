@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.liyinghua.dao.CategoryMapper;
+import com.liyinghua.entity.Category;
 import com.liyinghua.service.CategoryService;
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -16,7 +17,7 @@ public class CategoryServiceImpl implements CategoryService {
 	 * 通过频道获取分类
 	 */
 	@Override
-	public List getCategoryByChannelId(Integer channelId) {
+	public List<Category> getCategoryByChannelId(Integer channelId) {
 		// TODO Auto-generated method stub
 		
 		return mapper.getCategoryByChannelId(channelId);

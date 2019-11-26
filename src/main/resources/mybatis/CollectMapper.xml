@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liyinghua.dao.CollectMapper">	
+
+	<resultMap type="com.liyinghua.entity.Collect" id="collectMap">
+	<id column="id" property="id"/> 
+	<result column="articleId" property="articleId"/>
+	<result column="userId"    property="userId"/>
+	<result column="url"    property="url"/>
+	<result column="del"    property="del"/>
+	<result column="collectTime"   property="collectTime"/>
+	<association property="user" column="userId" select="com.liyinghua.dao.UserMapper.getUserById"></association> 
+	<association property="article" column="articleId" select="com.liyinghua.dao.ArticleMapper.findById"></association> 
+</resultMap>  
+	<insert id="addCollect">
+		insert into cms_collect(userId,articleId,url,collectTime,del) values(#{userId},#{articleId},#{url},now(),1)
+	</insert>
+	<select id="getUserCollectByUserId" resultMap="collectMap">
+		select * from cms_collect  where userId=#{userId} and del=1
+	</select>
+	<update id="del">
+		update  cms_collect set del=0 where id=#{id}
+	
+	</update>
+</mapper>

@@ -18,11 +18,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<result column=" deleted" property="deleted"/>
 			<result column=" updated" property="updated"/>
 			<result column=" commentCnt" property="commentCnt"/>
-			<result column=" articleType" property="articleType"/>
+			<result property="articleType" column="articleType" 
+		    typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"
+			jdbcType="INTEGER" javaType="com.liyinghua.entity.TypeEnum"
+		    />
 			<association property="user" column="user_id" select="com.liyinghua.dao.UserMapper.getUserById"></association> 
 			<association property="channel" column="channel_id" select="com.liyinghua.dao.ChannelMapper.findById"></association> 
 			<association property="category" column="category_id" select="com.liyinghua.dao.CategoryMapper.findById"></association>     
-	</resultMap>                
+	</resultMap> 
+	<resultMap type="com.liyinghua.entity.Review" id="reviewMap">
+		<id column="id" property="id"/>  
+		<result column="articleId" property="articleId"/>
+		<result column="userId"    property="userId"/>
+		<result column="content"   property="content"/>
+		<result column="created"   property="created"/>
+		<association property="user" column="userId" select="com.liyinghua.dao.UserMapper.getUserById"></association> 
+		<association property="article" column="articleId" select="com.liyinghua.dao.ArticleMapper.findById"></association> 
+	</resultMap>               
 	<select id="getArticleByChannelId" resultMap="articleMap">
 		select a.*,b.username,b.id as uid from cms_article a left join cms_user b on a.user_id=b.id
 		 <where>
@@ -44,5 +56,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>   
 	<select id="getArticleById" resultMap="articleMap">
 		select a.*,b.username,b.id as uid from cms_article a left join cms_user b on a.user_id=b.id where a.id=#{articleId}
-	</select>            
+	</select>  
+	<select id="getUserNewsList" resultMap="articleMap">
+		select a.*,b.username,b.id as uid from cms_article a left join cms_user b on a.user_id=b.id where a.deleted=0
+	</select>    
+	<update id="delNews">
+		update  cms_article set  deleted=1 where id=${articleId} 
+	</update>	
+	<select id="getUserNewsByHot" resultMap="articleMap">
+		select a.*,b.username,b.id as uid from cms_article a left join cms_user b on a.user_id=b.id where hot=1 and a.id=${articleId}
+	</select>    
+	<update id="setHot">
+		update  cms_article set  hot=${status} where id=${articleId} 
+	</update> 
+	<update id="apply">
+		update  cms_article set  status=#{status} where id=${id} 
+	</update>  
+	<select id="minId" resultType="Integer">
+		SELECT MIN(id) FROM cms_article 
+	</select>
+	<select id="maxId" resultType="Integer">
+		SELECT MAX(id) FROM cms_article 
+	</select>
+	<select id="getUserNewsListByUserId" resultMap="articleMap">
+		select a.*,b.username,b.id as uid from cms_article a left join cms_user b on a.user_id=b.id where a.deleted=0 and b.id=#{id}
+	</select>
+	<select id="getReview" resultMap="reviewMap">
+		select * from cms_comment where articleId=#{articleId}
+	</select>
+	
+	<select id="findById" resultMap="articleMap">
+		SELECT * FROM cms_article WHERE id=${value}
+	</select>
+	<select id="getReviewsNum" resultType="int">
+		SELECT COUNT(cms_comment.id) from cms_comment where articleId=${id}
+	</select>
+	<!-- 获取图片文章 -->
+	<select id="getImgArticles" resultMap="articleMap" >
+		SELECT id,title,picture,channel_id,category_id,user_id,hits,commentCnt,created,articleType
+			FROM cms_article 
+			WHERE deleted=0 AND status=1 AND articleType=1
+			ORDER BY created DESC 
+			LIMIT #{value}
+	</select>
 </mapper>

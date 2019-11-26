@@ -79,10 +79,10 @@
 		    <tr class="active">
 		        <td>${user.id }</td>
 			    <td>${user.username }</td>
-			    <td><fmt:formatDate value="${user.birthday }" pattern="YYYY年MM月dd日"/></td>
+			    <td><fmt:formatDate value="${user.birthday}" pattern="YYYY年MM月dd日"/></td>
 			    <td>${user.gender!=0?"男":"女" }</td>
 			    <td>${user.locked!=0?"禁用":"正常" }</td>
-			    <td><fmt:formatDate value="${user.createTime }" pattern="YYYY年MM月dd日"/></td>
+			    <td><fmt:formatDate value="${user.createTime}" pattern="YYYY年MM月dd日"/></td>
 			    <td>${user.role==0?"普通用户":"管理员"}</td>
 			    <td>
 			    <c:if test="${user.locked==0?"true":""}">
@@ -100,21 +100,16 @@
 <!-- 有空看一下 分页 不是很明白  -->	
   <ul class="pagination">
     <li>
-      <a href="javascript:fy(${info.prePage})" aria-label="Previous"> &laquo;</a>
+      <a href="javascript:fy(1)" aria-label="Previous">首页</a>
     </li>
-   	<c:forEach begin="${info.pageNum-2 > 1 ? info.pageNum-2:1}" end="${info.pageNum+2 > info.pages ? info.pages:info.pageNum+2}" varStatus="index">    		
-    	<c:if test="${info.pageNum!=index.index}">
-    		<li><a href="javascript:goPage(${index.index})">${index.index}</a></li>
-    	</c:if>
-    	<c:if test="${info.pageNum==index.index}">
-    		<li><a href="javascript:void"><strong> ${index.index} </strong> </a></li>
-    	</c:if>
-    	
-    </c:forEach>
+	<li>
+      <a href="javascript:fy(${info.prePage})" aria-label="Previous">上一页</a>
+    </li>
     <li>
-      <a href="javascript:fy(${info.nextPage})" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
+      <a href="javascript:fy(${info.nextPage})" aria-label="Previous">下一页</a>
+    </li>
+	<li>
+      <a href="javascript:fy(${info.pages})" aria-label="Previous">尾页</a>
     </li>
   </ul>
 </nav>	

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <!DOCTYPE html>
@@ -61,41 +61,85 @@
 	
 </style>
 <script type="text/javascript">
+	
 	function toCategory(cid) {
-		var url="Category/getCategoryByChannelId?channelId="+cid;
+		var url="/home/Category/getCategoryByChannelId?channelId="+cid;
 		$("#news").load(url);
-		var url1="Article/getArticleBychannelId?channelId="+cid;
+		var url1="/home/Article/getArticleBychannelId?channelId="+cid;
 		$("#newss").load(url1);
 	}
 	function getArticleBychannelIdAndByCategoryId(categoryId) {
-		var url="Article/getArticleBychannelIdAndByCategoryId?categoryId="+categoryId;
+		var url="/home/Article/getArticleBychannelIdAndByCategoryId?categoryId="+categoryId;
 		$("#newss").load(url);
+	}
+	function toRegister() {
+		location="/user/toRegister";
+	}
+	function toLogin() {
+		location="/user/toLogin";
+		
+	}
+	function toIndex() {
+		location="/admin/hello";
+	}
+	function toExit() {
+		location="/user/exit";
+	}
+	function toUserIndex() {
+		location="/admin/UserHello";
+	}
+	function toContent(newsId) {
+		window.open("/home/Article/getContent?articleId="+newsId)
 	}
 </script>
 </head>
 <body	background="/resource/images/光速运营唯一QQ2415813907图片0322.jpg">
-	 <div class="container-fluid" style="margin-left: 200px" >
-	<div class="row-fluid">
-		<div class="span12" style="width: 100%">
-			 <nav class="navbar navbar-default" role="navigation">
-			 	<img alt="等下我找找" src="/resource/images/怡心.png" style="height: 50px;">
-				 <div class="container-fluid"  style="float:right;margin-right: 40%"  > 
-					    <div class="navbar-header">
-					        <form class="navbar-form navbar-left" role="search">
-						        <div class="form-group">
-						            <input type="text" class="form-control" placeholder="Search"  >
-						        </div>
-						        <button type="submit" class="btn btn-default">提交</button>
-					    	</form>
-					    </div> 
+<div>
+	<div class="container">
+	<divstyle="height: 75px">
+		<div class="span12" >
+			<nav class="navbar navbar-default" role="navigation"  style="width: 1700px">
+			    <div class="container-fluid" style="width: 100%;height: 75px">
+				<div class="navbar-header" style="float: left;height: 75px;">
+					<img alt="等下我找找" src="/resource/images/怡心.png" style="height: 75px;width: 75px">
+				 </div>
+				<div style="float: left;margin-left: 40%">
+					<form class="navbar-form navbar-left" role="search">
+						 <div class="form-group">
+							<input type="text" class="form-control" placeholder="Search"  >           
+						</div>
+						<button type="submit" class="btn btn-default">提交</button>
+					</form>	    				      
+				</div>
+				<div>
+					    <c:if test="${mess!=1}">     
+				             <input type="button" class="btn btn-default" id="toLogin" onclick="toLogin()" style="margin-top: 5px;float: right;"  value="员工入口" >
+				        </c:if> 
+				        <c:if test="${mess==1}">
+				        			<img alt="找找" src="/resource/images/3.png" style="width: 75px;height:75px;float: right">
+				        	<h3 style="margin-top: 10px;float: right;">${SESSION_USER_KEY.username}</h3>
+				        </c:if>
+				        <c:if test="${add==1}">
+				       		<button type="button" class="btn btn-default" onclick="toIndex()" style="margin-left: 300px;margin-top: 30px">个人中心</button>
+    						<button type="button" class="btn btn-default" onclick="toExit()" style="margin-top: 30px">退出</button>
+				        	
+							
+				       </c:if>
+				       <c:if test="${add!=1 && add!=null}">
+				        	<button type="button" class="btn btn-default" onclick="toUserIndex()" style="margin-left: 300px;margin-top: 30px">个人中心</button>
+    						<button type="button" class="btn btn-default" onclick="toExit()" style="margin-top: 30px">退出</button>
+    						
+				      </c:if>	 
+				</div>
 				</div>
 			</nav>
 		</div>
 	</div>
-	<div class="row-fluid">
-		<div class="span2" style="width:20%;float: left;">
-			<div style="width: 70% ;margin-left: 50px">
-			<div class="list-group">
+		
+
+		<div class="span2"  style="margin-top: 20px;width: 13% ;float: left;margin-left: 100px" >
+			<div style="width:100%;" >
+			<div class="list-group"  >
 			    <a href="#" class="list-group-item active">
 			        <h4 class="list-group-item-heading">
 			         		国际
@@ -112,13 +156,13 @@
 			    </a>
 			  	</c:forEach>
 			</div>
-		</div>
-		</div>
-		<div class="span7" >
-			<div id="news" style="width: 55%;margin-left: 20%;" >
-			
-			</div>
-			<div class="span2" style="width:55%; float: left;" id="newss" >
+		</div>	
+	</div>
+		<div class="span7">
+			<div style="width: 98%;margin-left: 20px">
+				<div id="news"></div>
+				<div  style="width:55%; float: left;" id="newss" >
+				
 				
 				<div id="myCarousel" class="carousel slide">
 					<!-- 轮播（Carousel）指标 -->
@@ -159,11 +203,12 @@
 				</div>
 				</c:forEach>
 			</div>
-			
+			</div>
+		
 		</div>
-			<div class="span2" style="height:40%;width:25%;;float: right;">
-				
-			<div class="container">
+		<div class="span3">
+		<div style=" width:26%;float: right;">
+			<div class="container" style="width: 95%;margin-right: 60px">
 		      <div class="blueBorder">
 		         <div class="blueRadius">
 					
@@ -171,39 +216,53 @@
 		          <div class="blueRadius">
 		          
 		         </div>
-		         <div class="text">
+		         <div class="text" style="margin-left: 5px">
 		         		<h3>公告</h3>
 		         </div>
 		      </div>
-		    </div>
+		    </div>	
+		    <c:if test="${yz==null or yz==true}">
+			
 			<div style="FONT-SIZE: 26pt; FILTER: wave(add=0,lightstrength=50,strength=3,freq=2,phrase=10); 
-					WIDTH: 100%; COLOR: pink; LINE-HEIGHT: 100%; FONT-FAMILY: 华文行楷;margin-left: 50% ">
-					<h1><strong>怡语</strong></h1>
+					WIDTH: 100%; COLOR: pink; LINE-HEIGHT: 100%; FONT-FAMILY: 华文行楷;margin-left: 40% ">
+					<h1><strong>怡语</strong></h1>				
 			</div>
-			<div style="padding: 50xp 100px 10px;">
-			    <form class="bs-example bs-example-form" role="form">
+			<p style="font-style:red;margin-left: 35%">${ErrorMessage}</p>
+			<p style="font-style:red;margin-left: 35%">${message}</p>
+			<div style="padding: 50xp 100px 10px;width: 100%">
+			    <form class="bs-example bs-example-form" role="form" action="/user/userLogin">
 			        <div class="input-group" style="width: 50%;margin-left: 25%">
 			            <span class="input-group-addon">用户名</span>
-			            <input type="text" class="form-control" placeholder="请输入用户名">
+			            <input type="text" class="form-control" placeholder="请输入用户名" name="username" >
+			            <!-- 用户判断 -->
+			            <input type="hidden" name="n" value="1">
+			           
 			        </div>
 			        <br>
 			       <div class="input-group" style="width: 50%;margin-left: 25%">
 			            <span class="input-group-addon">密&nbsp;&nbsp;&nbsp;码</span>
-			            <input type="text" class="form-control" placeholder="请输入密码">
+			            <input type="text" class="form-control" placeholder="请输入密码" name="password">
 			        </div>
 			        <div>
-			        	<button type="button" class="btn btn-success" style="margin-top: 10px;margin-left: 45%">登录</button>
+			        	<input type="submit" class="btn btn-success" style="margin-top: 10px;margin-left: 30%" value="登录">
+			        	<input type="button" class="btn btn-info" style="margin-top: 10px;margin-left: 10%;" value="注册" onclick="toRegister()">
 			        </div>
+			        
 			    </form>
+
 			</div>
-			<div  style="width: 50%;margin-left: 50px">
+			</c:if>
+			<div  style="width: 50%;margin-left: 50px;margin-top: 10%">
 			<div class="panel panel-primary" >
 			    <div class="panel-heading">
-			        <h3 class="panel-title">面板标题</h3>
+			        <h3 class="panel-title">图片文章</h3>
 			    </div>
 			    <div class="panel-body">
-					        这是一个基本的面板
-			 	</div>
+						<c:forEach items="${imgArticles}" var="article" varStatus="index"> 
+							<a href="javascript:showArticle(${article.id})">${index.index}. ${article.title}</a>
+							<br/>
+						</c:forEach>
+				</div>		    
 			</div>
 		<div class="panel panel-success">
 		    <div class="panel-heading">
@@ -239,12 +298,19 @@
 		</div>			
 		</div>
 		</div>
+		</div>
 	</div>
-	</div>
-	<div class="row-fluid">
+	<div class="row">
 		<div class="span12">
 		</div>
 	</div>
 </div>
+<script type="text/javascript" src="/resource/js/cms_index.js"></script>
+<script type="text/javascript">
+
+
+
+
+</script>
 </body>
 </html>

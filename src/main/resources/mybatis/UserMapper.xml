@@ -12,6 +12,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where>
 	</select>
 	<select id="getUserById" resultType="com.liyinghua.entity.User">
-		select * from cms_user  where id=#{id}
+		select * from cms_user  where id=#{id} 
 	</select>
+	<select id="findByName" resultType="com.liyinghua.entity.User">
+		select * from cms_user where username=#{username}
+		<if test="role!=null and role!=''">
+			and role=#{role}
+		</if>
+		 limit 1
+	</select>
+	<insert id="add">
+		INSERT INTO cms_user(username,password,nickname,birthday
+                           ,gender,locked,createTime,updateTime,url,score,role) 
+		      values(#{username},#{password},#{nickname},#{birthday},
+		       #{gender},0,now(),now(),'',0,#{role}) 
+	</insert>
 </mapper>

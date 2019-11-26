@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.liyinghua.entity.Article;
 import com.liyinghua.entity.User;
 
 public interface UserMapper {
@@ -38,5 +39,25 @@ public interface UserMapper {
 	 */
 	@Update("update cms_user set locked=${locked} where id=${id}")
 	public Integer updLocked(@Param("id")Integer id,@Param("locked") Integer locked);
+	/**
+	 * 
+	 * @Title: findByName 
+	 * @Description: 查找用户是否存在
+	 * @param username
+	 * @param role 
+	 * @return
+	 * @return: User
+	 */
+	public User findByName(@Param("username")String username, @Param("role")Integer role);
+	/**
+	 * 
+	 * @Title: add 
+	 * @Description: 添加用户
+	 * @param user
+	 * @return
+	 * @return: int
+	 */
+	public int add(User user);
+
 
 }

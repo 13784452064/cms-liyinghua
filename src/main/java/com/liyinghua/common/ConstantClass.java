@@ -27,4 +27,12 @@ public class ConstantClass {
 	 * 状态不符合解禁要求
 	 */
 	public static  final Integer INCONFORMITY=1;
+	/**
+	 * 用于登录获取session
+	 */
+	public static final String USER_KEY="SESSION_USER_KEY";
+	/**
+	 * 登录注册验证
+	 */
+	public static  final Boolean LOGIN_REGISTER=false;
 }

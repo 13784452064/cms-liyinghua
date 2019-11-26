@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.liyinghua.entity.Category;
+
 public interface CategoryMapper {
 	/**
 	 * 
@@ -13,7 +15,7 @@ public interface CategoryMapper {
 	 * @return
 	 * @return: List
 	 */
-	List getCategoryByChannelId(@Param("channelId")Integer channelId);
+	List<Category> getCategoryByChannelId(@Param("channelId")Integer channelId);
 	/**
 	 * 
 	 * @Title: findById 

@@ -2,6 +2,7 @@ package com.liyinghua.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 /**
  * 
  * @ClassName: Article 
@@ -78,10 +79,15 @@ public class Article implements Serializable{
 	/**
 	 * 文章类型
 	 */
-	private Integer articleType   ;
+	private TypeEnum articleType = TypeEnum.HTML ;
+	/**
+	 * 该文章的所有图片
+	 */
+	private List<Image> imgList;
 	public Article(Integer id, String title, String content, String picture, Integer channelId, Channel channel,
 			Integer categoryId, Category category, Integer userId, User user, Integer hits, Integer hot, Integer status,
-			Integer deleted, Date created, Date updated, Integer commentCnt, Integer articleType) {
+			Integer deleted, Date created, Date updated, Integer commentCnt, TypeEnum articleType,
+			List<Image> imgList) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -101,6 +107,7 @@ public class Article implements Serializable{
 		this.updated = updated;
 		this.commentCnt = commentCnt;
 		this.articleType = articleType;
+		this.imgList = imgList;
 	}
 	public Article() {
 		super();
@@ -208,14 +215,30 @@ public class Article implements Serializable{
 	public void setCommentCnt(Integer commentCnt) {
 		this.commentCnt = commentCnt;
 	}
-	public Integer getArticleType() {
+	public TypeEnum getArticleType() {
 		return articleType;
 	}
-	public void setArticleType(Integer articleType) {
+	public void setArticleType(TypeEnum articleType) {
 		this.articleType = articleType;
+	}
+	public List<Image> getImgList() {
+		return imgList;
+	}
+	public void setImgList(List<Image> imgList) {
+		this.imgList = imgList;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	@Override
+	public String toString() {
+		return "Article [id=" + id + ", title=" + title + ", content=" + content + ", picture=" + picture
+				+ ", channelId=" + channelId + ", channel=" + channel + ", categoryId=" + categoryId + ", category="
+				+ category + ", userId=" + userId + ", user=" + user + ", hits=" + hits + ", hot=" + hot + ", status="
+				+ status + ", deleted=" + deleted + ", created=" + created + ", updated=" + updated + ", commentCnt="
+				+ commentCnt + ", articleType=" + articleType + ", imgList=" + imgList + "]";
+	}
+	
+	
 	
 }

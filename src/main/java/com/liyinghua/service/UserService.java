@@ -1,6 +1,7 @@
 package com.liyinghua.service;
 
 import com.github.pagehelper.PageInfo;
+import com.liyinghua.entity.Article;
 import com.liyinghua.entity.User;
 
 public interface UserService {
@@ -33,5 +34,42 @@ public interface UserService {
 	 * @return: Integer
 	 */
 	Integer updLocked(Integer id, Integer locked);
+	
+	/**
+	 * 
+	 * @Title: userLogin 
+	 * @Description: 用户登录
+	 * @param user
+	 * @return
+	 * @return: User
+	 */
+	User userLogin(User user);
+	/**
+	 * 
+	 * @Title: register 
+	 * @Description: TODO
+	 * @param user
+	 * @return
+	 * @return: int
+	 */
+	int register(User user);
+	/**
+	 * 
+	 * @Title: getUserNewsList 
+	 * @Description: 获取用户所有的新闻(分页)
+	 * @return
+	 * @return: PageInfo<Article>
+	 */
+	PageInfo<Article> getUserNewsList(Integer fy);
+	/**
+	 * 
+	 * @Title: getUserNewsList 
+	 * @Description: 获取本用户所有的新闻(分页)
+	 * @param fy
+	 * @param id
+	 * @return
+	 * @return: PageInfo<Article>
+	 */
+	PageInfo<Article> getUserNewsListByUserId(Integer fy, Integer id);
 
 }
